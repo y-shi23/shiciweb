@@ -43,7 +43,7 @@ function App() {
 
         {!selectedPoem ? (
           <div className="flex flex-col items-center justify-center min-h-[60vh]">
-            <h1 className="text-5xl font-bold text-gray-900 mb-12">诗苑</h1>
+            <h1 className="text-5xl font-bold text-gray-900 mb-12">詩苑</h1>
             <div className="w-full max-w-2xl">
               <SearchBar poems={poems} onSelect={setSelectedPoem} />
             </div>
