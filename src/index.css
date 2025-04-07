@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'huiwen';
+  src: url('https://cloud.tsinghua.edu.cn/f/ae1f7cf11f2542b09a65/?dl=1') format('opentype');
+}
+
+@font-face {
+  font-family: 'LXGWWenKaiMonoLite';
+  src: url('https://cdn.jsdelivr.net/gh/y-shi23/CDN/fonts/LXGWWenKaiMonoLite-Regular.ttf') format('truetype');
+}
+
+:root {
+  --primary-color: #3B82F6;
+  --secondary-color: #60A5FA;
+  --accent-color: #93C5FD;
+  --background-color: #FFFFFF;
+  --text-color: #1F2937;
+  --button-color: #3B82F6;
+  --card-color: #FFFFFF;
+  --block-color: #F3F4F6;
+
+  font-family: 'LXGWWenKaiMonoLite', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: 'LXGWWenKaiMonoLite', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* 全局文字颜色 */
+* {
+  color: var(--text-color);
+}
+
+/* 特定文字颜色覆盖 */
+.text-gray-500,
+.text-gray-600,
+.text-gray-700,
+.text-gray-800,
+.text-gray-900 {
+  color: var(--text-color);
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.container {
+  @apply mx-auto px-4;
+}
+
+/* 主题颜色应用 */
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.border-primary {
+  border-color: var(--primary-color);
+}
+
+.hover\:bg-primary:hover {
+  background-color: var(--primary-color);
+}
+
+.hover\:text-primary:hover {
+  color: var(--primary-color);
+}
+
+.focus\:ring-primary:focus {
+  --tw-ring-color: var(--primary-color);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
+.text-secondary {
+  color: var(--secondary-color);
+}
+
+.bg-accent {
+  background-color: var(--accent-color);
+}
+
+.text-accent {
+  color: var(--accent-color);
+}
+
+/* 按钮颜色 */
+.bg-button {
+  background-color: var(--button-color);
+}
+
+.text-button {
+  color: var(--button-color);
+}
+
+.hover\:bg-button:hover {
+  background-color: var(--button-color);
+}
+
+/* 卡片颜色 */
+.bg-card {
+  background-color: var(--card-color);
+}
+
+/* 区块颜色 */
+.bg-block {
+  background-color: var(--block-color);
+}

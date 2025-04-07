@@ -1,0 +1,17 @@
+{
+  "main": "index.html",
+  "logo": "logo.png",
+  "features": [
+    {
+      "code": "sc",
+      "explain": "诗苑",
+      "cmds": ["诗","词","sc","诗苑"]
+    }
+  ],
+  "pluginSetting": {
+    "single": true,
+    "height": 0,
+    "width": 0,
+    "overwrite": true
+  }
+} 
