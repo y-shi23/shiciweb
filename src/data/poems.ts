@@ -14,7 +14,7 @@ export async function getPoems(): Promise<Poem[]> {
   }
 
   try {
-    const response = await fetch('https://cdn.jsdelivr.net/gh/y-shi23/CDN/json@latest/poems.json');
+    const response = await fetch('https://cdn.jsdelivr.net/gh/y-shi23/CDN/json/poems.json@latest');
     if (!response.ok) {
       throw new Error('Failed to fetch poems');
     }
