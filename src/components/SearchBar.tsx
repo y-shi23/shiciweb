@@ -41,6 +41,12 @@ const SearchBar = ({ poems, onSelect }: SearchBarProps) => {
     onSelect(poem)
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && suggestions.length > 0) {
+      handleSelect(suggestions[0])
+    }
+  }
+
   return (
     <div ref={searchRef} className="relative">
       <div className="relative">
@@ -48,6 +54,7 @@ const SearchBar = ({ poems, onSelect }: SearchBarProps) => {
           type="text"
           value={query}
           onChange={(e) => handleSearch(e.target.value)}
+          onKeyDown={handleKeyDown}
           onFocus={() => setIsFocused(true)}
           placeholder="唯见月寒日暖，来煎人寿。"
           className="w-full px-4 py-3 text-lg border border-button/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-button focus:border-transparent bg-block"

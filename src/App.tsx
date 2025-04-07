@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react'
-import { poems } from './data/poems'
+import { getPoems, Poem } from './data/poems'
 import SearchBar from './components/SearchBar'
 import PoemDisplay from './components/PoemDisplay'
 import SettingsModal from './components/SettingsModal'
 
 function App() {
-  const [selectedPoem, setSelectedPoem] = useState<typeof poems[0] | null>(null)
+  const [poems, setPoems] = useState<Poem[]>([])
+  const [selectedPoem, setSelectedPoem] = useState<Poem | null>(null)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
 
   useEffect(() => {
+    // 加载诗词数据
+    getPoems().then(setPoems)
+
     // 应用保存的主题
     const savedTheme = localStorage.getItem('theme')
     if (savedTheme) {

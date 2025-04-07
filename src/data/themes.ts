@@ -21,7 +21,7 @@ export const themes: Theme[] = [
       accent: '#93C5FD',
       background: '#FFFFFF',
       text: '#1F2937',
-      button: '#3B82F6',
+      button: '#4F5358FF',
       card: '#FFFFFF',
       block: '#F3F4F6'
     }
@@ -32,9 +32,9 @@ export const themes: Theme[] = [
       primary: '#60A5FA',
       secondary: '#3B82F6',
       accent: '#2563EB',
-      background: '#a4b0be',
+      background: '#000000FF',
       text: '#ffffff',
-      button: '#60A5FA',
+      button: '#4B4F54FF',
       card: '#374151',
       block: '#4B5563'
     }
@@ -45,11 +45,11 @@ export const themes: Theme[] = [
       primary: '#B81A35',
       secondary: '#C25160',
       accent: '#DD6B7B',
-      background: '#E2A2AC',
+      background: '#B81A35',
       text: '#1F2937',
       button: '#DD6B7B',
       card: '#C25160',
-      block: '#B81A35'
+      block: '#E2A2AC'
     }
   },
   {
