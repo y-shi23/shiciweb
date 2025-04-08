@@ -32,7 +32,9 @@ const SearchResults = ({ query, poems, onSelect, onBack }: SearchResultsProps) =
   }, [query]) // 当搜索词变化时更新随机句子
 
   const filteredPoems = poems.filter(
-    poem => poem.title.includes(query) || poem.author.includes(query)
+    poem => poem.title.includes(query) || 
+            poem.author.includes(query) || 
+            poem.content.includes(query)
   )
 
   return (

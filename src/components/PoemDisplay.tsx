@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Poem } from '../data/poems'
 import NoteModal from './NoteModal'
+import { init } from '@waline/client'
 
 interface Note {
   poemId: string
@@ -22,6 +23,34 @@ const PoemDisplay = ({ poem, onBack }: PoemDisplayProps) => {
     const savedNotes = JSON.parse(localStorage.getItem('poemNotes') || '[]')
     setNotes(savedNotes.filter((n: Note) => n.poemId === poem.title))
   }, [poem.title, notesUpdateKey])
+
+  useEffect(() => {
+    // 初始化 Waline
+    init({
+      el: '#waline',
+      serverURL: 'https://waline.oneloved.cn',
+      path: `/poem/${poem.title}`,
+      lang: 'zh-CN',
+      dark: 'auto',
+      reaction: [],
+      emoji: [
+        'https://unpkg.com/@waline/emojis@1.2.0/tieba'
+      ]
+    })
+
+    // 设置 Waline 样式变量
+    const root = document.documentElement
+    root.style.setProperty('--waline-bgcolor', 'transparent')
+    root.style.setProperty('--waline-theme-color', '#4f46e5')
+    root.style.setProperty('--waline-active-color', '#4338ca')
+    root.style.setProperty('--waline-text-color', '#374151')
+    root.style.setProperty('--waline-border-color', 'rgba(79, 70, 229, 0.2)')
+    root.style.setProperty('--waline-badge-color', '#4f46e5')
+    root.style.setProperty('--waline-info-bgcolor', 'transparent')
+    root.style.setProperty('--waline-info-color', '#6b7280')
+    root.style.setProperty('--waline-card-bgcolor', '#ffffff')
+    root.style.setProperty('--waline-box-shadow', 'none')
+  }, [poem.title])
 
   const handleNotesUpdate = () => {
     setNotesUpdateKey(prev => prev + 1)
@@ -94,6 +123,12 @@ const PoemDisplay = ({ poem, onBack }: PoemDisplayProps) => {
           </div>
         </div>
       )}
+
+      {/* 评论区 */}
+      <div className="bg-block rounded-lg shadow-md p-6">
+        <h3 className="text-xl font-semibold text-gray-900 mb-4">评论区</h3>
+        <div id="waline" className="mt-4"></div>
+      </div>
 
       {/* 笔记弹窗 */}
       <NoteModal

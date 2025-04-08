@@ -88,7 +88,9 @@ const SearchBar = ({ poems, onSelect, onShowAll }: SearchBarProps) => {
     setSelectedIndex(-1)
     if (value.trim()) {
       const filtered = poems.filter(
-        poem => poem.title.includes(value) || poem.author.includes(value)
+        poem => poem.title.includes(value) || 
+                poem.author.includes(value) || 
+                poem.content.includes(value)
       ).slice(0, 3)
       setSuggestions(filtered)
     } else {
