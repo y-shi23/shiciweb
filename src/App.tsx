@@ -3,11 +3,13 @@ import { getPoems, Poem } from './data/poems'
 import SearchBar from './components/SearchBar'
 import PoemDisplay from './components/PoemDisplay'
 import SettingsModal from './components/SettingsModal'
+import SearchResults from './components/SearchResults'
 
 function App() {
   const [poems, setPoems] = useState<Poem[]>([])
   const [selectedPoem, setSelectedPoem] = useState<Poem | null>(null)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState<string | null>(null)
 
   useEffect(() => {
     // 加载诗词数据
@@ -29,6 +31,21 @@ function App() {
     }
   }, [])
 
+  const handlePoemSelect = (poem: Poem) => {
+    setSelectedPoem(poem)
+    setSearchQuery(null)
+  }
+
+  const handleShowAllResults = (query: string) => {
+    setSearchQuery(query)
+    setSelectedPoem(null)
+  }
+
+  const handleBack = () => {
+    setSelectedPoem(null)
+    setSearchQuery(null)
+  }
+
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
@@ -45,20 +62,35 @@ function App() {
           </button>
         </div>
 
-        {!selectedPoem ? (
+        {!selectedPoem && !searchQuery ? (
           <div className="flex flex-col items-center justify-center min-h-[60vh]">
             <h1 className="text-5xl font-bold text-gray-900 mb-12">詩苑</h1>
             <div className="w-full max-w-2xl">
-              <SearchBar poems={poems} onSelect={setSelectedPoem} />
+              <SearchBar 
+                poems={poems} 
+                onSelect={handlePoemSelect}
+                onShowAll={handleShowAllResults}
+              />
             </div>
           </div>
-        ) : (
+        ) : selectedPoem ? (
           <div className="flex flex-col items-center">
             <div className="w-full max-w-2xl">
-              <PoemDisplay poem={selectedPoem} onBack={() => setSelectedPoem(null)} />
+              <PoemDisplay poem={selectedPoem} onBack={handleBack} />
             </div>
           </div>
-        )}
+        ) : searchQuery ? (
+          <div className="flex flex-col items-center">
+            <div className="w-full max-w-2xl">
+              <SearchResults
+                query={searchQuery}
+                poems={poems}
+                onSelect={handlePoemSelect}
+                onBack={handleBack}
+              />
+            </div>
+          </div>
+        ) : null}
 
         <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
       </div>
