@@ -4,8 +4,8 @@
 
 @font-face {
   font-family: 'huiwen';
-  src: url('https://cdn.jsdelivr.net/gh/y-shi23/CDN/fonts/huiwen-i.otf') format('opentype');
-  /*src: url('https://cloud.tsinghua.edu.cn/f/0745f9fff12b49769c2b/?dl=1') format('opentype');*/
+  /*src: url('https://cdn.jsdelivr.net/gh/y-shi23/CDN/fonts/huiwen-i.otf') format('opentype');*/
+  src: url('https://cloud.tsinghua.edu.cn/f/0745f9fff12b49769c2b/?dl=1') format('opentype');
 }
 
 @font-face {
@@ -35,6 +35,16 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* 隐藏滚动条 */
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 body {

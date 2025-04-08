@@ -4,12 +4,17 @@ import SearchBar from './components/SearchBar'
 import PoemDisplay from './components/PoemDisplay'
 import SettingsModal from './components/SettingsModal'
 import SearchResults from './components/SearchResults'
+import CardMode from './components/CardMode'
 
 function App() {
   const [poems, setPoems] = useState<Poem[]>([])
   const [selectedPoem, setSelectedPoem] = useState<Poem | null>(null)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState<string | null>(null)
+  const [isCardMode, setIsCardMode] = useState(() => {
+    const savedMode = localStorage.getItem('isCardMode')
+    return savedMode ? JSON.parse(savedMode) : false
+  })
 
   useEffect(() => {
     // 加载诗词数据
@@ -31,25 +36,52 @@ function App() {
     }
   }, [])
 
+  // 保存卡片模式状态到localStorage
+  useEffect(() => {
+    localStorage.setItem('isCardMode', JSON.stringify(isCardMode))
+  }, [isCardMode])
+
   const handlePoemSelect = (poem: Poem) => {
     setSelectedPoem(poem)
     setSearchQuery(null)
+    setIsCardMode(false)
   }
 
   const handleShowAllResults = (query: string) => {
     setSearchQuery(query)
     setSelectedPoem(null)
+    setIsCardMode(false)
   }
 
   const handleBack = () => {
     setSelectedPoem(null)
     setSearchQuery(null)
+    setIsCardMode(false)
+  }
+
+  const handleCardMode = () => {
+    setIsCardMode(!isCardMode)
+    setSelectedPoem(null)
+    setSearchQuery(null)
   }
 
   return (
-    <div className="min-h-screen">
+    <div className={`${isCardMode ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
       <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-end mb-8">
+        <div className="flex justify-end mb-8 space-x-2">
+          <button
+            onClick={handleCardMode}
+            className={`p-2 rounded-lg transition-colors ${
+              isCardMode 
+                ? 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300' 
+                : 'bg-button text-white hover:bg-button/90'
+            }`}
+            title="卡片模式"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+            </svg>
+          </button>
           <button
             onClick={() => setIsSettingsOpen(true)}
             className="bg-button text-white p-2 rounded-lg hover:bg-button/90 transition-colors"
@@ -62,7 +94,12 @@ function App() {
           </button>
         </div>
 
-        {!selectedPoem && !searchQuery ? (
+        {isCardMode ? (
+          <CardMode 
+            poems={poems} 
+            onSelectPoem={handlePoemSelect}
+          />
+        ) : !selectedPoem && !searchQuery ? (
           <div className="flex flex-col items-center justify-center min-h-[60vh]">
             <h1 className="text-5xl font-bold text-gray-900 mb-12">詩苑</h1>
             <div className="w-full max-w-2xl">
