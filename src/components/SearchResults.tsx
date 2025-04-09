@@ -55,11 +55,11 @@ const SearchResults = ({ query, poems, onSelect, onBack }: SearchResultsProps) =
       </div>
 
       {filteredPoems.length === 0 ? (
-        <div className="flex-grow flex items-center justify-center">
+        <div className="flex items-center justify-center">
           <div className="text-3xl font-medium text-gray-500">未找到相关诗词</div>
         </div>
       ) : (
-        <div className="flex-grow grid gap-4">
+        <div className="grid gap-4">
           {filteredPoems.map((poem, index) => (
             <div
               key={index}
