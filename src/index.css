@@ -9,8 +9,8 @@
 }
 
 @font-face {
-  font-family: 'LXGWWenKaiMonoLite';
-  src: url('https://cdn.jsdelivr.net/gh/y-shi23/CDN/fonts/LXGWWenKaiMonoLite-Regular.ttf') format('truetype');
+  font-family: 'LXGWWenKai';
+  src: url('https://cdn.jsdelivr.net/gh/y-shi23/CDN/fonts/LXGWWenKai.ttf') format('truetype');
 }
 
 :root {
@@ -23,7 +23,7 @@
   --card-color: #FFFFFF;
   --block-color: #F3F4F6;
 
-  font-family: 'LXGWWenKaiMonoLite', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'LXGWWenKai', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -49,7 +49,7 @@
 
 body {
   margin: 0;
-  font-family: 'LXGWWenKaiMonoLite', sans-serif;
+  font-family: 'LXGWWenKai', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background-color);

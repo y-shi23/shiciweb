@@ -23,6 +23,7 @@ const PoemDisplay = ({ poem, onBack }: PoemDisplayProps) => {
   const [isCommentsCollapsed, setIsCommentsCollapsed] = useState(false)
   const [isContentHidden, setIsContentHidden] = useState(false)
   const [hoveredLine, setHoveredLine] = useState<number | null>(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
     const savedNotes = JSON.parse(localStorage.getItem('poemNotes') || '[]')
@@ -107,30 +108,54 @@ const PoemDisplay = ({ poem, onBack }: PoemDisplayProps) => {
             </svg>
           </button>
         </div>
-        <div className="absolute top-4 right-4 flex space-x-2">
-          <button
-            onClick={() => setIsContentHidden(!isContentHidden)}
-            className={`p-2 rounded-lg transition-colors ${
-              isContentHidden 
-                ? 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300' 
-                : 'bg-button text-white hover:bg-button/90'
-            }`}
-            title={isContentHidden ? "显示全文" : "隐藏全文"}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-            </svg>
-          </button>
-          <button
-            onClick={() => setIsNoteModalOpen(true)}
-            className="bg-button text-white p-2 rounded-lg hover:bg-button/90 transition-colors"
-            title="管理笔记"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-            </svg>
-          </button>
+        <div className="absolute top-4 right-4">
+          <div className="relative">
+            <div className={`absolute top-12 right-0 flex flex-col space-y-2 transition-all duration-300 transform origin-top ${isMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0 pointer-events-none'}`}>
+              <button
+                onClick={() => {
+                  setIsNoteModalOpen(true)
+                  setIsMenuOpen(false)
+                }}
+                className="bg-button text-white p-2 rounded-lg hover:bg-button/90 transition-colors"
+                title="管理笔记"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+              </button>
+              <button
+                onClick={() => {
+                  setIsContentHidden(!isContentHidden)
+                  setIsMenuOpen(false)
+                }}
+                className={`p-2 rounded-lg transition-colors ${
+                  isContentHidden 
+                    ? 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300' 
+                    : 'bg-button text-white hover:bg-button/90'
+                }`}
+                title={isContentHidden ? "显示全文" : "隐藏全文"}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </button>
+            </div>
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 rounded-lg hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors"
+              title="菜单"
+            >
+              <svg
+                className={`w-5 h-5 transform transition-transform duration-300 ${isMenuOpen ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
         </div>
         <div className="text-center mb-6">
           <h2 className="text-3xl font-bold text-gray-900 mb-2 font-[huiwen]">{poem.title}</h2>

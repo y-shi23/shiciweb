@@ -14,11 +14,20 @@ export async function getPoems(): Promise<Poem[]> {
   }
 
   try {
-    const response = await fetch('https://pub-707dbd0d846f49a7be5c10bda803d1a2.r2.dev/poem.json');
-    if (!response.ok) {
-      throw new Error('Failed to fetch poems');
-    }
-    poemsCache = await response.json();
+    const urls = [
+      'https://pub-707dbd0d846f49a7be5c10bda803d1a2.r2.dev/poem.json',
+      'https://pub-707dbd0d846f49a7be5c10bda803d1a2.r2.dev/poem1.json'
+    ];
+
+    const responses = await Promise.all(urls.map(url => fetch(url)));
+    const results = await Promise.all(responses.map(response => {
+      if (!response.ok) {
+        throw new Error(`Failed to fetch poems from ${response.url}`);
+      }
+      return response.json();
+    }));
+
+    poemsCache = results.flat();
     return poemsCache;
   } catch (error) {
     console.error('Error fetching poems:', error);

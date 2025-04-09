@@ -6,6 +6,57 @@ import SettingsModal from './components/SettingsModal'
 import SearchResults from './components/SearchResults'
 import CardMode from './components/CardMode'
 
+// 修改 ActionMenu 组件
+const ActionMenu = ({ onCardMode, onSettings }: { onCardMode: () => void, onSettings: () => void }) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <div className="fixed top-4 right-4 z-50 flex items-center">
+      <div className={`flex space-x-2 transition-all duration-300 transform origin-right ${isOpen ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0 pointer-events-none'}`}>
+        <button
+          onClick={() => {
+            onCardMode()
+            setIsOpen(false)
+          }}
+          className="p-2 rounded-full bg-transparent hover:bg-white/10 transition-colors"
+          title="卡片模式"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
+        </button>
+        <button
+          onClick={() => {
+            onSettings()
+            setIsOpen(false)
+          }}
+          className="p-2 rounded-full bg-transparent hover:bg-white/10 transition-colors"
+          title="设置"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </button>
+      </div>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="p-2 rounded-full bg-transparent hover:bg-white/10 transition-colors"
+        title="菜单"
+      >
+        <svg 
+          className={`w-6 h-6 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+    </div>
+  )
+}
+
 function App() {
   const [poems, setPoems] = useState<Poem[]>([])
   const [selectedPoem, setSelectedPoem] = useState<Poem | null>(null)
@@ -68,66 +119,49 @@ function App() {
   return (
     <div className={`${isCardMode ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
       <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-end mb-8 space-x-2">
-          <button
-            onClick={handleCardMode}
-            className={`p-2 rounded-lg transition-colors ${
-              isCardMode 
-                ? 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300' 
-                : 'bg-button text-white hover:bg-button/90'
-            }`}
-            title="卡片模式"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-            </svg>
-          </button>
-          <button
-            onClick={() => setIsSettingsOpen(true)}
-            className="bg-button text-white p-2 rounded-lg hover:bg-button/90 transition-colors"
-            title="设置"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </button>
-        </div>
+        <div className="relative">
+          <div className="absolute top-0 right-0">
+            <ActionMenu 
+              onCardMode={handleCardMode}
+              onSettings={() => setIsSettingsOpen(true)}
+            />
+          </div>
 
-        {isCardMode ? (
-          <CardMode 
-            poems={poems} 
-            onSelectPoem={handlePoemSelect}
-          />
-        ) : !selectedPoem && !searchQuery ? (
-          <div className="flex flex-col items-center justify-center min-h-[60vh]">
-            <h1 className="text-5xl font-bold text-gray-900 mb-12">詩苑</h1>
-            <div className="w-full max-w-2xl">
-              <SearchBar 
-                poems={poems} 
-                onSelect={handlePoemSelect}
-                onShowAll={handleShowAllResults}
-              />
+          {isCardMode ? (
+            <CardMode 
+              poems={poems} 
+              onSelectPoem={handlePoemSelect}
+            />
+          ) : !selectedPoem && !searchQuery ? (
+            <div className="flex flex-col items-center justify-center min-h-[60vh] mt-16">
+              <h1 className="text-5xl font-bold text-gray-900 mb-12">詩苑</h1>
+              <div className="w-full max-w-2xl">
+                <SearchBar 
+                  poems={poems} 
+                  onSelect={handlePoemSelect}
+                  onShowAll={handleShowAllResults}
+                />
+              </div>
             </div>
-          </div>
-        ) : selectedPoem ? (
-          <div className="flex flex-col items-center">
-            <div className="w-full max-w-2xl">
-              <PoemDisplay poem={selectedPoem} onBack={handleBack} />
+          ) : selectedPoem ? (
+            <div className="flex flex-col items-center mt-16">
+              <div className="w-full max-w-2xl">
+                <PoemDisplay poem={selectedPoem} onBack={handleBack} />
+              </div>
             </div>
-          </div>
-        ) : searchQuery ? (
-          <div className="flex flex-col items-center">
-            <div className="w-full max-w-2xl">
-              <SearchResults
-                query={searchQuery}
-                poems={poems}
-                onSelect={handlePoemSelect}
-                onBack={handleBack}
-              />
+          ) : searchQuery ? (
+            <div className="flex flex-col items-center mt-16">
+              <div className="w-full max-w-2xl">
+                <SearchResults
+                  query={searchQuery}
+                  poems={poems}
+                  onSelect={handlePoemSelect}
+                  onBack={handleBack}
+                />
+              </div>
             </div>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
 
         <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
       </div>
