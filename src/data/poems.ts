@@ -16,7 +16,9 @@ export async function getPoems(): Promise<Poem[]> {
   try {
     const urls = [
       'https://pub-707dbd0d846f49a7be5c10bda803d1a2.r2.dev/poem.json',
-      'https://pub-707dbd0d846f49a7be5c10bda803d1a2.r2.dev/poem1.json'
+      'https://pub-707dbd0d846f49a7be5c10bda803d1a2.r2.dev/poem1.json',
+      'https://pub-707dbd0d846f49a7be5c10bda803d1a2.r2.dev/poem2.json'
+  
     ];
 
     const responses = await Promise.all(urls.map(url => fetch(url)));
