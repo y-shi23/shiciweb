@@ -5,6 +5,7 @@ import PoemDisplay from './components/PoemDisplay'
 import SettingsModal from './components/SettingsModal'
 import SearchResults from './components/SearchResults'
 import CardMode from './components/CardMode'
+import packageJson from '../package.json'
 
 // 修改 ActionMenu 组件
 const ActionMenu = ({ onCardMode, onSettings }: { onCardMode: () => void, onSettings: () => void }) => {
@@ -117,7 +118,7 @@ function App() {
   }
 
   return (
-    <div className={`${isCardMode ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
+    <div className={`${isCardMode ? 'h-screen overflow-hidden' : 'min-h-screen'} relative`}>
       <div className="container mx-auto px-4 py-8">
         <div className="relative">
           <div className="absolute top-0 right-0">
@@ -164,6 +165,9 @@ function App() {
         </div>
 
         <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
+      </div>
+      <div className="absolute bottom-2 left-0 right-0 text-center">
+        <span className="text-xs text-gray-400">版本號：{packageJson.version}</span>
       </div>
     </div>
   )

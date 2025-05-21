@@ -18,7 +18,8 @@ const PLACEHOLDER_QUOTES = [
   { text: "只恐双溪舴艋舟，载不动，许多愁。"},
   { text: "众里寻他千百度，蓦然回首，那人却在灯火阑珊处。"},
   { text: "人生如逆旅，我亦是行人。"},
-  { text: "落花人独立，微雨燕双飞。"}
+  { text: "落花人独立，微雨燕双飞。"},
+  { text: "天朗气清，惠风和畅。"},
 ]
 
 const SearchBar = ({ poems, onSelect, onShowAll }: SearchBarProps) => {
