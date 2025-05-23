@@ -18,18 +18,35 @@ export async function getPoems(): Promise<Poem[]> {
       'https://pub-707dbd0d846f49a7be5c10bda803d1a2.r2.dev/poem.json',
       'https://pub-707dbd0d846f49a7be5c10bda803d1a2.r2.dev/poem1.json',
       'https://pub-707dbd0d846f49a7be5c10bda803d1a2.r2.dev/poem2.json'
-  
     ];
 
     const responses = await Promise.all(urls.map(url => fetch(url)));
-    const results = await Promise.all(responses.map(response => {
+    const results = await Promise.all(responses.map(async response => {
       if (!response.ok) {
         throw new Error(`Failed to fetch poems from ${response.url}`);
       }
-      return response.json();
+      const text = await response.text();
+      try {
+        return JSON.parse(text);
+      } catch (e) {
+        console.error('JSON parse error:', e);
+        return [];
+      }
     }));
 
-    poemsCache = results.flat();
+    poemsCache = results.flat().filter(poem => 
+      poem && 
+      typeof poem === 'object' && 
+      'title' in poem && 
+      'author' in poem && 
+      'dynasty' in poem && 
+      'content' in poem
+    );
+    
+    if (poemsCache.length === 0) {
+      throw new Error('No valid poems found in the response');
+    }
+    
     return poemsCache;
   } catch (error) {
     console.error('Error fetching poems:', error);
